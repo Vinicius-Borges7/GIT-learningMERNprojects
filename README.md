@@ -1,78 +1,104 @@
 # IF4Health Site Management
+My first task as a scholarship holder from Ifsul's research group called If4Health was to transform a static website into a dynamic MERN web app. The website was created by https://github.com/andredelmestre, and he also developed a prototype for the backend, upon which my changes are based.
 
-maded by https://github.com/andredelmestre, I just inserted projects's crud and updated some files.
+This repository represents the backend of the application, obviously.
 
-![](https://if4health.netlify.app/logo/opt-if4health-halfsize.png)
+## How to Run
 
-This is my 4th Node.JS project. The goal of this project is to learn how to build my application with Docker containers. Most of Cloud Free services support Docker container for deploying webapps. Once I intend to publish this tool online, I need to understand how to deploy an application online for real.
-
-I could connect my app in Atlas but I do not like the idea of having the DB and the API running in different clouds. Therefore I am using 2 containers - a MongoDB container and an API container - because I want DB and API on the same server. 
-
-To enable my project decision, I have to learn how to use Docker Compose and DotEnv Node package. The nicest thing about this project is I can use MongoDB without installing it in my local machine by running the MongoDB container. I am also using authentication when connecting to MongoDB. You can access MongoDB running in the container by the following command:
-
-```sh
-mongosh --port 27017 -u mongoadmin -p  --authenticationDatabase 'admin'
-```
-
-## Requirements
-- NodeJS [https://nodejs.org/en/](https://nodejs.org/en/)
-- NPM [https://www.python.org/downloads/](https://www.npmjs.com/)
-- MongoDB [https://www.mongodb.com/](https://www.mongodb.com/)
-- Docker e Docker Compose [https://docs.docker.com/](https://docs.docker.com/)
-
-## Installation
-Install dependecies described in `package.json`
-```sh
+### Dependencies
+first, install the dependencies
+``powershell
 npm install
-```
-## Usage - Docker
-Rename `.env.example` to `.env` and set up enviromental variables. Use `DB_HOST=DB_IF4HEALTH`. *DB_IF4HEALTH* is the container name defined in docker-container.yml.
+``
+### AWS S3 Bucket and IAM
+So, create a account on AWS if you dont have one and do a S3 Bucket for you, this process is to complex to explain here so good luck. 
+You need to create two users on AWS IAM too, they are "common users" and "adm"(both could be another name). all users need a data access policy, I will give you a template to just run the app here:
 
-Open a terminal and go to the project directory.
-```sh
-# Run in Docker. -d flag to run in background
-docker-compose up -d
+Adm's policy:
+``JSON
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowReadWriteDelete",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::YOUR_S3_BUCKET_NAME/*",
+                "arn:aws:s3:::YOUR_S3_BUCKET_NAME"
+            ]
+        }
+    ]
+}
+``
 
-# Tear down
-docker-compose down
+Common User's Policy:
+``JSON
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::YOUR_S3_BUCKET_NAME/*"
+            ]
+        }
+    ]
+}
+``
 
-# To re-build
-docker-compose build
+### Enviroment
+then with AWS things done, now you need to fill the enviroment variables with your data
+| Variable                | Description                                                |
+|-------------------------|------------------------------------------------------------|
+| PORT                    | The port who the server must run                           |
+| DB_NAME                 | Name from your mongodb database                            |
+| DB_URI                  | URL from your atlas cluster/database                       |
+| BUCKET_NAME             | Name from your AWS S3 Bucket                               |
+| BUCKET_REGION           | Location where your bucket is hosted                       |
+| ADM_ACESS_KEY           | Acess key from your ADM user(AWS IAM)                      |
+| ADM_SECRET_KEY          | Secret key from your ADM user(AWS IAM)                     |
 
-# To debug
-docker-compose logs -f
-```
-
-You should be able to access the running server in a web browser:
-```sh
-http://localhost:${SERVER_PORT}/
-```
-
-## Usage - Local
-Rename `.env.example` to `.env` and set up enviromental variables. Use `DB_HOST=localhost`.
-
-Open a terminal, go to the project directory, create directory for uploads, and start the server.
-```sh
-cd <this_project_dir>
-mkdir uploads/images
-mkdir uploads/pdf
-npm run start
-```
-You should be able to access the running server in a web browser:
-```sh
-http://localhost:${SERVER_PORT}/
-```
+### Start Commands
+to start the server, use the command
+``powershell
+npm start
+``
 
 ## Routes
+with everthing running, these are the routes
 | Route                   | Method | Description                                                |
 |-------------------------|--------|------------------------------------------------------------|
-| `/`                     | GET    | Shows root homepage.                                       |
-| `/students`             | GET    | Loads form and table of CRUD students.                     |
-| `/students/:id`         | GET    | Loads form and data of a student.                          |
-| `/students/myForm`      | POST   | Send student data to DB storage.                           |
-| `/students/update/:id`  | PUT    | Upload a student status to finish an ongoing student work. |
+| `/`                     | GET    | Go to home page.                                           |
+| `/students`             | GET    | Go to students interface.                                  |
+| `/students/data`        | GET    | Get all students                                           |
+| `/students/:id`         | GET    | Get one student.                                           |
+| `/students/myForm`      | POST   | Register one student on db.                                |
+| `/students/update/:id`  | PUT    | Upload a student status.                                   |
 | `/students/delete/:id`  | DELETE | Delete a student.                                          |
-| `/works`                | GET    | Loads form containing only one work.                       |
-| `/works/:id`            | GET    | Loads form containing only one work.                       |
-| `/works/myForm`         | POST   | Send a work data to DB storage.                            |
-| `/works/delete/:id`     | DELETE | Delete a published work by id.                             |
+
+| `/works`                | GET    | Go to the works interface.                                 |
+| `/works/data`           | GET    | Get all works.                                             |
+| `/works/:id`            | GET    | Get one work.                                              |
+| `/works/myForm`         | POST   | Register one work on DB.                                   |
+| `/works/delete/:id`     | DELETE | Delete a work.                                             |
+
+| `/projects`             | GET    | Go to the projects interface.                              |
+| `/projects/data`        | GET    | Get all projects.                                          |
+| `/projects/:id`         | GET    | Get one project.                                           |
+| `/projects/myForm`      | POST   | Register a Project.                                        |
+| `/projects/delete/:id`  | DELETE | Delete a project.                                          |
+
+| `/linkTrees`            | GET    | Go to the link trees interface.                            |
+| `/linkTrees/data`       | GET    | Get all link trees.                                        |
+| `/linkTrees/single/:id` | GET    | Get one link tree.                                         |
+| `/linkTrees/myForm`     | POST   | Register one link tree on db.                              |
+| `/linkTrees/delete/:id` | DELETE | Delete a link tree.                                        |
