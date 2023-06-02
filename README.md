@@ -12,8 +12,8 @@ npm install
 ````
 
 ### AWS S3 Bucket and IAM
-So, create a account on AWS if you dont have one and do a S3 Bucket for you, this process is to complex to explain here so good luck. 
-You need to create two users on AWS IAM too, they are "common users" and "adm"(both could be another name). all users need a data access policy, I will give you a template to just run the app here:
+To begin, create an account on AWS if you don't have one and set up an S3 Bucket. The process of creating a bucket is complex to explain here, so good luck.
+You also need to create two users in AWS IAM: one for common users and another for administrative tasks. You can name them whatever you prefer. All users require a data access policy. Below is a template for running the app:
 
 Adm's policy:
 ````JSON
@@ -57,15 +57,15 @@ Common User's Policy:
 ````
 ### Enviroment
 then with AWS things done, now you need to fill the enviroment variables with your data
-| Variable                | Description                                                |
-|-------------------------|------------------------------------------------------------|
-| PORT                    | The port who the server must run                           |
-| DB_NAME                 | Name from your mongodb database                            |
-| DB_URI                  | URL from your atlas cluster/database                       |
-| BUCKET_NAME             | Name from your AWS S3 Bucket                               |
-| BUCKET_REGION           | Location where your bucket is hosted                       |
-| ADM_ACESS_KEY           | Acess key from your ADM user(AWS IAM)                      |
-| ADM_SECRET_KEY          | Secret key from your ADM user(AWS IAM)                     |
+| Variable                | Description                                                         |
+|-------------------------|---------------------------------------------------------------------|
+| PORT                    | The port on which the server must run.                              |
+| DB_NAME                 | Name from your MongoDB database.                                    |
+| DB_URI                  | URL of your Atlas cluster/database.                                 |
+| BUCKET_NAME             | Name of your AWS S3 Bucket.                                         |
+| BUCKET_REGION           | Location where your bucket is hosted.                               |
+| ADM_ACESS_KEY           | Acess key of your ADM user(AWS IAM).                                |
+| ADM_SECRET_KEY          | Secret key of your ADM user(AWS IAM).                               |
 
 ### Start Commands  
 to start the server, use the command          
@@ -80,22 +80,22 @@ with everthing running, these are the routes
 | `/`                     | GET    | Go to home page.                                           |
 | `/students`             | GET    | Go to students interface.                                  |
 | `/students/data`        | GET    | Get all students                                           |
-| `/students/:id`         | GET    | Get one student.                                           |
-| `/students/myForm`      | POST   | Register one student on db.                                |
+| `/students/:id`         | GET    | Get a single student.                                      |
+| `/students/myForm`      | POST   | Register a single student on db.                           |
 | `/students/update/:id`  | PUT    | Upload a student status.                                   |
-| `/students/delete/:id`  | DELETE | Delete a student.                                          |
+| `/students/delete/:id`  | DELETE | Delete a single student.                                   |
 | `/works`                | GET    | Go to the works interface.                                 |
 | `/works/data`           | GET    | Get all works.                                             |
-| `/works/:id`            | GET    | Get one work.                                              |
-| `/works/myForm`         | POST   | Register one work on DB.                                   |
-| `/works/delete/:id`     | DELETE | Delete a work.                                             |
+| `/works/:id`            | GET    | Get a single work.                                         |
+| `/works/myForm`         | POST   | Register a single work on DB.                              |
+| `/works/delete/:id`     | DELETE | Delete a single work.                                      |
 | `/projects`             | GET    | Go to the projects interface.                              |
 | `/projects/data`        | GET    | Get all projects.                                          |
-| `/projects/:id`         | GET    | Get one project.                                           |
+| `/projects/:id`         | GET    | Get a single project.                                      |
 | `/projects/myForm`      | POST   | Register a Project.                                        |
-| `/projects/delete/:id`  | DELETE | Delete a project.                                          |
+| `/projects/delete/:id`  | DELETE | Delete a single project.                                   |
 | `/linkTrees`            | GET    | Go to the link trees interface.                            |
 | `/linkTrees/data`       | GET    | Get all link trees.                                        |
-| `/linkTrees/single/:id` | GET    | Get one link tree.                                         |
-| `/linkTrees/myForm`     | POST   | Register one link tree on db.                              |
+| `/linkTrees/single/:id` | GET    | Get a single link tree.                                    |
+| `/linkTrees/myForm`     | POST   | Register a single link tree on db.                         |
 | `/linkTrees/delete/:id` | DELETE | Delete a link tree.                                        |
