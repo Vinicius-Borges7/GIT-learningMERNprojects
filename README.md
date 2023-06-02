@@ -4,18 +4,19 @@ My first task as a scholarship holder from Ifsul's research group called If4Heal
 This repository represents the backend of the application, obviously.
 
 ## How to Run
-
+---
 ### Dependencies
 first, install the dependencies
-``powershell
+````powershell
 npm install
-``
+````
+
 ### AWS S3 Bucket and IAM
 So, create a account on AWS if you dont have one and do a S3 Bucket for you, this process is to complex to explain here so good luck. 
 You need to create two users on AWS IAM too, they are "common users" and "adm"(both could be another name). all users need a data access policy, I will give you a template to just run the app here:
 
 Adm's policy:
-``JSON
+````JSON
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -35,10 +36,10 @@ Adm's policy:
         }
     ]
 }
-``
+````
 
 Common User's Policy:
-``JSON
+````JSON
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -53,8 +54,7 @@ Common User's Policy:
         }
     ]
 }
-``
-
+````
 ### Enviroment
 then with AWS things done, now you need to fill the enviroment variables with your data
 | Variable                | Description                                                |
@@ -67,11 +67,11 @@ then with AWS things done, now you need to fill the enviroment variables with yo
 | ADM_ACESS_KEY           | Acess key from your ADM user(AWS IAM)                      |
 | ADM_SECRET_KEY          | Secret key from your ADM user(AWS IAM)                     |
 
-### Start Commands
-to start the server, use the command
-``powershell
+### Start Commands  
+to start the server, use the command          
+````powershell
 npm start
-``
+````        
 
 ## Routes
 with everthing running, these are the routes
@@ -84,19 +84,16 @@ with everthing running, these are the routes
 | `/students/myForm`      | POST   | Register one student on db.                                |
 | `/students/update/:id`  | PUT    | Upload a student status.                                   |
 | `/students/delete/:id`  | DELETE | Delete a student.                                          |
-
 | `/works`                | GET    | Go to the works interface.                                 |
 | `/works/data`           | GET    | Get all works.                                             |
 | `/works/:id`            | GET    | Get one work.                                              |
 | `/works/myForm`         | POST   | Register one work on DB.                                   |
 | `/works/delete/:id`     | DELETE | Delete a work.                                             |
-
 | `/projects`             | GET    | Go to the projects interface.                              |
 | `/projects/data`        | GET    | Get all projects.                                          |
 | `/projects/:id`         | GET    | Get one project.                                           |
 | `/projects/myForm`      | POST   | Register a Project.                                        |
 | `/projects/delete/:id`  | DELETE | Delete a project.                                          |
-
 | `/linkTrees`            | GET    | Go to the link trees interface.                            |
 | `/linkTrees/data`       | GET    | Get all link trees.                                        |
 | `/linkTrees/single/:id` | GET    | Get one link tree.                                         |
