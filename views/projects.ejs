@@ -6,8 +6,8 @@
 
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">  
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="https://if4health.s3.sa-east-1.amazonaws.com/gambiarra/css/stylesheets/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="https://if4health.s3.sa-east-1.amazonaws.com/gambiarra/css/stylesheets/timeline.css">
+		<link rel="stylesheet" type="text/css" href="https://if4health-files.s3.sa-east-1.amazonaws.com/gambiarra/stylesheets/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="https://if4health-files.s3.sa-east-1.amazonaws.com/gambiarra/stylesheets/timeline.css">
 
         <script type="text/javascript" async>
             let memberCount = 1;
@@ -61,6 +61,9 @@
 					</li>
 					<li>
 						<a class="nav-link" href="/projects"><i aria-hidden="true" class="fa fa-lg fa-file-text"></i> Projetos</a> 
+					</li>
+					<li>
+						<a class="nav-link" href="/linkTrees"><i aria-hidden="true" class="fa fa-lg fa-link"></i> Link Trees</a> 
 					</li>
 				</ul>
 			</div>
@@ -132,6 +135,9 @@
   				    <th>Bolsistas</th>
   				  </tr>
   				</thead>
+
+
+				
     			<% for(var i = 0; i < projects.length; i++) { %>
     			  <% if(projects[i].status == "Em andamento") { %>
     			<tr>
